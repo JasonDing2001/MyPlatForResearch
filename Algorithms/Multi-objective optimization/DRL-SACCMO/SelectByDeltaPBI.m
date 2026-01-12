@@ -1,8 +1,16 @@
-Ôªøfunction Popreal_Dec2 = SelectByDeltaPBI(ND_TSObj,ND_TSDec,ND_PopObj,ND_PopDec,W)
-% PBI ÊîπÂñÑÊúÄÂ§ßÔºàÂèÇËÄÉÂêëÈáèÈ©±Âä®Êî∂Êïõ/ÂàÜÂ∏ÉÔºâ
+function Popreal_Dec2 = SelectByDeltaPBI(ND_TSObj,ND_TSDec,ND_PopObj,ND_PopDec,W)
+% PBI ∏ƒ…∆◊Ó¥Û£®≤ŒøºœÚ¡ø«˝∂Ø ’¡≤/∑÷≤º£©
 
     if isempty(ND_PopDec)
         Popreal_Dec2 = [];
+        return;
+    end
+    if isempty(ND_TSObj)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
+    if isempty(ND_TSObj)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
         return;
     end
 
@@ -32,6 +40,14 @@
     end
 
     activeW = W(unique_class_T,:);
+    if isempty(activeW)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
+    if isempty(activeW)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
     ND_PopObj = AllPopObj(N1+1:end,:);
     ND_PopDec = AllPopDec(N1+1:end,:);
     normP  = sqrt(sum(ND_PopObj.^2,2));
@@ -42,6 +58,14 @@
 
     [~,ia,~] = unique(class_P);
     unique_class_C = class_P(ia);
+    if isempty(unique_class_C)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
+    if isempty(unique_class_C)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
     Candidate_PBI = 10000*ones(size(activeW,1),1);
     Archive_PBI_new = -1*10000*ones(size(W,1),1);
     Next = zeros(1,size(activeW,1));
@@ -57,9 +81,19 @@
         class_CC = cat(1,class_CC,class_C);
     end
     index = Next(Next~=0);
+    if isempty(index)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
+    if isempty(index)
+        Popreal_Dec2 = ND_PopDec(randi(size(ND_PopDec,1)),:);
+        return;
+    end
     PBI_old = Archive_PBI(class_CC,:);
     PBI_new = Archive_PBI_new(class_CC,:);
     delta = PBI_new-PBI_old;
     [~,best] = sort(delta);
     Popreal_Dec2 = ND_PopDec(index(best(1)),:);
 end
+
+

@@ -29,7 +29,6 @@
 
             % 参考向量（PBI 动作使用）
             [W,~]   = UniformPoint(Problem.N,Problem.M);
-            [WCV,~] = UniformPoint(Problem.N,Problem.M+1);
 
             %% U/C 子任务归档
             ArchiveU = Archive;
@@ -69,7 +68,7 @@
                 muU     = ceil(mu/2);
                 muC     = mu - muU;
                 NewDecU = SelectInfillPoints(actionU,PopU,ArchiveAll,W,Model,CModel,Problem,muU,false);
-                NewDecC = SelectInfillPoints(actionC,PopC,ArchiveAll,WCV,Model,CModel,Problem,muC,true);
+                NewDecC = SelectInfillPoints(actionC,PopC,ArchiveAll,W,Model,CModel,Problem,muC,true);
                 NewDec  = unique([NewDecU;NewDecC],'rows');
 
                 % 兜底补点，保证每轮数量
